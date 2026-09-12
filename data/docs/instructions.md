@@ -1,0 +1,41 @@
+CSV Ingestion process
+
+- Download the csv dataset from kaggle - (url - https://www.kaggle.com/datasets/datasetengineer/logistics-and-supply-chain-dataset)
+
+- put the csv into your project codebase
+
+- we have to make a docker container which will run MSSQL server
+  Configurations for docker
+  First create the volume
+  docker volume create mssql_data
+
+then run this script
+docker run -e "ACCEPT_EULA=Y" \
+ -e "MSSQL_SA_PASSWORD=YourStrong@Password123" \
+ -p 1433:1433 \
+ --name mssql2022 \
+ --restart unless-stopped \
+ -v mssql_data:/var/opt/mssql \
+ -d mcr.microsoft.com/mssql/server:2022-latest
+
+This will make a MSSQL db server
+
+Now we have to ingest the csv data into db
+
+- make a script for ingestion and run (python scripts/ingest_csv_data_into_db.py)
+
+- now the db connection is done and all the csv data is pushed into db
+
+- connect with db through vs code extension - mssql
+
+Configurations
+Profile Name: legacy-mssql
+Server name*: localhost
+Port: 1433
+Trust server certificate: 🟩 Check this box / turn it ON (Crucial for Docker)
+Authentication type*: SQL Login
+User name*: sa
+Password*: Your Password
+Save Password: 🟩 Check this box
+Database name: Type master (or leave it on "Select a database")
+Encrypt: ⚠️ Change this from Mandatory to Optional (or False)
