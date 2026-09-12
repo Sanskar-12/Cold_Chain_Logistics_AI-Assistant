@@ -39,3 +39,8 @@ Password*: Your Password
 Save Password: 🟩 Check this box
 Database name: Type master (or leave it on "Select a database")
 Encrypt: ⚠️ Change this from Mandatory to Optional (or False)
+
+- After connecting to db you can check the connection by running query inside VS code
+- Do CTRL + N and then change the Plain Text to SQL
+- and then you can write the query
+  SELECT \* FROM dbo.TBL_SC_FLEET_HIST_RAW;
